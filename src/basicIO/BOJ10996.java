@@ -32,7 +32,7 @@ public class BOJ10996 {
 
         String strTop = String.valueOf(top);
         String strBottom = String.valueOf(bottom);
-        if (n == 0) {
+        if (n == 1) {
             bw.write("*");
         } else {
             for (int i = 0; i < n; i++) {
