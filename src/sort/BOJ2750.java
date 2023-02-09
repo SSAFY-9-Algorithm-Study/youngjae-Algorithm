@@ -24,8 +24,8 @@ public class BOJ2750 {
         }
 
 
-
-        Arrays.sort(arr,Collections.reverseOrder());
+        Arrays.sort(arr);
+//        Arrays.sort(arr,Collections.reverseOrder());
         for (int i : arr) {
             System.out.println(i);
         }
