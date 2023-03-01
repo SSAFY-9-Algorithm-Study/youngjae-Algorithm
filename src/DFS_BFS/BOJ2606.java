@@ -41,20 +41,6 @@ public class BOJ2606 {
 
 		}
 
-//		Test.adjList = new ArrayList[Test.n + 1];
-//		for (int i = 0; i <= Test.n; i++) {
-//			Test.adjList[i] = new ArrayList<Integer>();
-//		}
-//
-//		for (int i = 0; i < Test.edge; i++) {
-//			st = new StringTokenizer(br.readLine());
-//			int s = Integer.parseInt(st.nextToken());
-//			int e = Integer.parseInt(st.nextToken());
-//
-//			Test.adjList[s].add(e);
-//			Test.adjList[e].add(s);
-//
-//		}
 		Test.visited[1] = 1;
 		Test.DFS(1);
 		System.out.println(Test.warmCount);
@@ -74,15 +60,5 @@ public class BOJ2606 {
 			}
 		}
 
-//		for (int vertex : adjList[v]) {
-//			if (visited[vertex] == 0) {
-//				visited[vertex] = 1;
-//				warmCount++;
-//				DFS(vertex);
-//				
-//			}
-//		}
-
 	}
-
 }
