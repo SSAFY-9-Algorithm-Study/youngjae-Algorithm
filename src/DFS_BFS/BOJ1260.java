@@ -88,5 +88,6 @@ public class BOJ1260 {
 		}
 
 	}
+	
 
 }
