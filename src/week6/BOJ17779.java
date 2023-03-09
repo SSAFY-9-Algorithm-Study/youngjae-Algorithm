@@ -11,10 +11,6 @@ public class BOJ17779 {
 
 	static int num;
 	static int total;
-//	static int x;
-//	static int y;
-//	static int d1;
-//	static int d2;
 	static int answer;
 	static int PepleBoard[][];
 	static int RegionBoard[][];
@@ -50,7 +46,7 @@ public class BOJ17779 {
 						if ((x + d1 + d2) <= num && 1 <= y - d1 && y - d1 < y && y < y + d2 && y + d2 <= num) {
 							sum = new int[6];
 
-							RegionBoard[x][y] = 5; // 위
+							RegionBoard[x][y] = 5; // 제일 위쪽
 
 							for (int k = 0; k < x + 1; k++) {
 								RegionBoard[k][y] = 1;
@@ -60,7 +56,7 @@ public class BOJ17779 {
 								RegionBoard[x + d][y - d] = 5; // 왼
 							}
 
-							RegionBoard[x + d1][y - d1] = 5; // 왼
+							RegionBoard[x + d1][y - d1] = 5; // 제일 왼쪽
 
 							for (int k = 0; k < y - d1; k++) {
 								RegionBoard[x + d1][k] = 3;
@@ -70,7 +66,7 @@ public class BOJ17779 {
 								RegionBoard[x + d][y + d] = 5; // 오
 							}
 
-							RegionBoard[x + d2][y + d2] = 5; // 오
+							RegionBoard[x + d2][y + d2] = 5; // 제일 오른쪽
 
 							for (int k = y + d2 + 1; k <= num; k++) {
 								RegionBoard[x + d2][k] = 2;
@@ -83,8 +79,8 @@ public class BOJ17779 {
 							for (int d = 0; d <= d1; d++) {
 								RegionBoard[x + d2 + d][y + d2 - d] = 5; // 오
 							}
-//							RegionBoard[x+d2+d1][y-d1+d2]=4;
-							RegionBoard[x + d1 + d2][y + d2 - d1] = 5; // 아래
+
+							RegionBoard[x + d1 + d2][y + d2 - d1] = 5; // 제일 아래쪽
 
 							for (int k = x + d1 + d2 + 1; k <= num; k++) {
 								RegionBoard[k][y + d2 - d1] = 4; // 아래
@@ -116,14 +112,11 @@ public class BOJ17779 {
 							}
 
 							Arrays.sort(sum);
-//							System.out.println(Arrays.toString(sum));
+
 
 							answer = Math.min(answer, sum[5] - sum[1]);
 
-//							System.out.println("PepleBoard");
-//							for (int a = 1; a <= num; a++) {
-//								System.out.println(Arrays.toString(RegionBoard[a]));
-//							}
+
 
 						}
 
