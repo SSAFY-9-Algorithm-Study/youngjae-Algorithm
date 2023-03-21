@@ -35,8 +35,8 @@ public class BOJ17142 {
 	static int dy[] = { 0, 1, 0, -1 };
 
 	static int board[][];
-	static int visited[][];
-	static int distance[][];
+	static int visited[][];  //바이러스위치 저장할 리스트
+	static int distance[][]; // 바이러스가 이동한 거리 저장하는 배열
 
 	static int combi[];
 	static int visitedCombi[];
@@ -65,6 +65,7 @@ public class BOJ17142 {
 			for (int j = 0; j < col; j++) {
 				board[i][j] = Integer.parseInt(st.nextToken());
 				if (board[i][j] == 2) {
+					//바이러스위치 저장
 					virusList.add(new Point(i, j));
 				}
 			}
@@ -126,6 +127,7 @@ public class BOJ17142 {
 		}
 	}
 
+	//바이러스 퍼트리기
 	static void BFS() {
 		while (!queue.isEmpty()) {
 			int size = queue.size();

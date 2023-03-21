@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
-
 public class BOJ17825 {
 
 	static class Node {
@@ -118,29 +117,36 @@ public class BOJ17825 {
 			flag = false;
 			int sum = 0;
 			for (int i = 0; i < 10; i++) {
-				if(HorseArr[permutation[i]].position == null) {
+				//말이 종착지에 도착한경우
+				if (HorseArr[permutation[i]].position == null) {
 					continue;
 				}
+				//현재의 말을 copy한 tmp말 생성
+				// 말 이동하기 전에 미리 이동가는한지 확인하는 용도
 				Horse tmpHorse = new Horse(HorseArr[permutation[i]].sum, HorseArr[permutation[i]].position);
 
-				
 				for (int m = 0; m < moveArr[i]; m++) {
 					if (tmpHorse.position != null) {
+						// 시작지점에 파란부분이 있으면 우선적으로 지나감
 						if (tmpHorse.position.blue != null && m == 0) {
 							tmpHorse.position = tmpHorse.position.blue;
 						} else {
+							
 							tmpHorse.position = tmpHorse.position.red;
 						}
 					}
 
 				}
 
+				//현재의 말이 종착지에 도착
 				if (tmpHorse.position == null) {
 					HorseArr[permutation[i]] = new Horse(tmpHorse.sum, tmpHorse.position);
 					continue;
 				} else {
+					// 현재의 말과 다른 말들이 겹치는지 체크
 					for (int h = 0; h < 4; h++) {
-
+						// 다른 말이 종착지에 있지않고, 현재의 말과 겹쳐지면  
+						// 이동하는 곳에 말이있으면 이동하지 않기위해서 tmp를 만들었는데, 말이 이동못하면 그냥 사용할수없는 경우임
 						if (HorseArr[h].position != null && tmpHorse.position != null) {
 							if (HorseArr[h].position == tmpHorse.position) {
 								flag = true;
@@ -149,22 +155,20 @@ public class BOJ17825 {
 
 					}
 				}
-
+				
+				// 겹치지 않으면 실제 현재의 말을 이동
 				if (flag == false) {
 					HorseArr[permutation[i]] = new Horse(tmpHorse.sum, tmpHorse.position);
 					if (HorseArr[permutation[i]].position != null)
 						HorseArr[permutation[i]].sum += HorseArr[permutation[i]].position.data;
 				}
-				
-				
-
-			}
-
-			if(!flag) {
-
-				answer = Math.max(answer, HorseArr[0].sum + HorseArr[1].sum + HorseArr[2].sum + HorseArr[3].sum);
 			}
 			
+			// 한번이라고 말이 겹쳐진적이 있으면 점수 계산
+			if (!flag) {
+				answer = Math.max(answer, HorseArr[0].sum + HorseArr[1].sum + HorseArr[2].sum + HorseArr[3].sum);
+			}
+
 		} else {
 			for (int i = 0; i < 4; i++) {
 				permutation[level] = i;

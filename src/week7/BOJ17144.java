@@ -13,8 +13,8 @@ public class BOJ17144 {
 	static int T;
 	static int board[][];
 	static int calculate[][]; // 값 계산하는 배열
-	static int airCleanerUp = -1;
-	static int airCleanerDown = -1;
+	static int airCleanerUp = -1; //공기청정기 윗 대가리 위치
+	static int airCleanerDown = -1; //공기청정기 아랫 대가리 위치
 
 	// 시계 방향
 	static int dx[] = { -1, 0, 1, 0 };
@@ -39,18 +39,19 @@ public class BOJ17144 {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < col; j++) {
 				board[i][j] = Integer.parseInt(st.nextToken());
-				if (board[i][j] == -1 && airCleanerUp != -1) {
+				
+				if (board[i][j] == -1 && airCleanerUp != -1) {//공기청정기 아랫 대가리 위치
 					airCleanerDown = i;
-				} else if (board[i][j] == -1 && airCleanerUp == -1) {
+				} else if (board[i][j] == -1 && airCleanerUp == -1) {//공기청정기 윗 대가리 위치
 					airCleanerUp = i;
 				}
 			}
 		}
 
 		for (int tc = 0; tc < T; tc++) {
-			calcul();
-			rotateReverse(airCleanerUp, 0);
-			rotate(airCleanerDown, 0);
+			calcul();//먼지 확산
+			rotateReverse(airCleanerUp, 0); // 윗 대가리쪽 정화
+			rotate(airCleanerDown, 0); // 아랫 대가리쪽 정화
 		}
 
 
@@ -75,18 +76,20 @@ public class BOJ17144 {
 			int nx = x + rdx[count%4];
 			int ny = y + rdy[count%4];
 
-			if(nx==startX && ny == startY) {
+			if(nx==startX && ny == startY) {// 다음 위치가 처음 위치에 도달하면 종료
 				break;
 			}
 			
-			if (airCleanerDown <= nx && nx < row && 0 <= ny && ny < col) {
+			if (airCleanerDown <= nx && nx < row && 0 <= ny && ny < col) { 
 				int tmp = board[x][y];
 				board[x][y] = board[nx][ny];
 				board[nx][ny] = tmp;
 
 				x = nx;
 				y = ny;
-			} else {
+			} else { 
+				// 이동할 수 없다는것은 현재 끝에 도달한것이기 때문에
+				//대각선 끝지점에 도착하면 방향을 바꿘준다.
 				count++;
 			}
 
@@ -104,7 +107,7 @@ public class BOJ17144 {
 			int nx = x + dx[count];
 			int ny = y + dy[count];
 
-			if(nx==startX && ny == startY) {
+			if(nx==startX && ny == startY) {// 다음 위치가 처음 위치에 도달하면 종료
 				break;
 			}
 			
@@ -116,6 +119,8 @@ public class BOJ17144 {
 				x = nx;
 				y = ny;
 			} else {
+				// 이동할 수 없다는것은 현재 끝에 도달한것이기 때문에
+				//대각선 끝지점에 도착하면 방향을 바꿘준다.
 				count++;
 			}
 
@@ -125,6 +130,7 @@ public class BOJ17144 {
 	}
 
 	static void calcul() {
+		// 변화될 값을 미리 저장
 		calculate = new int[row][col];
 
 		for (int i = 0; i < row; i++) {
@@ -137,15 +143,15 @@ public class BOJ17144 {
 					int ny = j + dy[d];
 
 					if (0 <= nx && nx < row && 0 <= ny && ny < col && board[nx][ny] != -1) {
-
-						calculate[nx][ny] += (board[i][j] / 5);
-						calculate[i][j] -= (board[i][j] / 5);
+						
+						calculate[nx][ny] += (board[i][j] / 5); // 주위 먼지 쌓임
+						calculate[i][j] -= (board[i][j] / 5);  // 현재위치의 먼지 적어짐
 					}
 				}
 			}
 		}
 
-		for (int i = 0; i < row; i++) {
+		for (int i = 0; i < row; i++) { // calculate값을 참고해서 원래 배열값 갱신
 			for (int j = 0; j < col; j++) {
 				board[i][j] += calculate[i][j];
 			}

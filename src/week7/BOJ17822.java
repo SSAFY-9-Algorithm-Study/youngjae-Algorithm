@@ -95,8 +95,10 @@ public class BOJ17822 {
 	static boolean findAdj() {
 		boolean flag = false;
 
+		//미리 인접한수들을 미리 체크해놓고, 나중에 지워줘야한다.
 		boolean check[][] = new boolean[N + 1][M];
 
+		//가로방향 인접 확인
 		for (int i = 1; i <= N; i++) {
 			for (int j = 0; j < M; j++) {
 				if (board[i][j] != 0 && board[i][j] == board[i][(j + 1) % M]) {
@@ -108,6 +110,7 @@ public class BOJ17822 {
 			}
 		}
 
+		//세로방향 인접 확인
 		for (int j = 0; j < M; j++) {
 			for (int i = 1; i < N; i++) {
 				if (board[i][j] != 0 && board[i][j] == board[i + 1][j]) {
@@ -121,13 +124,12 @@ public class BOJ17822 {
 
 		}
 
+		//인접한게 있었다면 check배열을 참고해  0으로 바꿔준다.
 		if (flag) {
 			for (int i = 1; i <= N; i++) {
 				for (int j = 0; j < M; j++) {
 					if (check[i][j]) {
-
 						board[i][j] = 0;
-
 					}
 				}
 			}
@@ -136,10 +138,13 @@ public class BOJ17822 {
 		return flag;
 	}
 
+	//평균보다 큰 수에서 1을 빼고, 작은 수에는 1을 더한다.
 	static void updateBoard() {
 		double sum = 0;
 		int count = 0;
 		double ave;
+		
+		//0이 아닌 값 카운트 및 합계산
 		for (int i = 1; i <= N; i++) {
 
 			for (int j = 0; j < M; j++) {
@@ -150,14 +155,16 @@ public class BOJ17822 {
 			}
 
 		}
+		//평균 계산
 		ave = sum / count;
 		for (int i = 1; i <= N; i++) {
 
+			
 			for (int j = 0; j < M; j++) {
-				if (board[i][j] != 0 && board[i][j] > ave) {
+				if (board[i][j] != 0 && board[i][j] > ave) { //평균보다 큰 수에서 1을 빼
 					board[i][j]--;
 
-				} else if (board[i][j] != 0 && board[i][j] < ave) {
+				} else if (board[i][j] != 0 && board[i][j] < ave) { //평균보다 작은 수에는 1을 더한다
 					board[i][j]++;
 				}
 			}
