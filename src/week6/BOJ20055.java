@@ -56,7 +56,7 @@ public class BOJ20055 {
 			}
 			durablitityArr[0] = latsPoint;
 			
-			
+			durablitityArr[num - 1].isRotot = false;
 			// 2. 로봇 이동가능하면 이동
 			for (int i = num - 2; i >= 0; i--) {
 				if (durablitityArr[i].isRotot && !durablitityArr[i + 1].isRotot
