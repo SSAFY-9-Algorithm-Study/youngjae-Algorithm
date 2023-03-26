@@ -57,7 +57,7 @@ public class BOJ12865_평범한배낭 {
 		for (int i = 0; i < N; i++) {
 			for (int j = K; j >= thingArray[i].weight; j--) {
 				DP[j] = Math.max(DP[j], DP[j - thingArray[i].weight] + thingArray[i].value);
--			}
+			}
 		}
 
 		System.out.println(DP[K]);
