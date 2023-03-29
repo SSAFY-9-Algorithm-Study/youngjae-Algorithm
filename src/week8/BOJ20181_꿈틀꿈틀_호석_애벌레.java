@@ -44,8 +44,8 @@ public class BOJ20181_꿈틀꿈틀_호석_애벌레 {
 
 		DP = new long[N];
 		branch = new long[N];
-		
-		map=new HashMap<Integer, ArrayList<Energy>>();
+
+		map = new HashMap<Integer, ArrayList<Energy>>();
 
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < N; i++) {
@@ -78,16 +78,24 @@ public class BOJ20181_꿈틀꿈틀_호석_애벌레 {
 		}
 
 		for (int i = N - 1; i >= 0; i--) {
-
+			long max = 0;
+			if (i + 1 < N)
+				max = DP[i + 1];
 			if (map.containsKey(i)) {
 				energyList = map.get(i);
 				for (Energy e : energyList) {
 
+//					int cnt = 0;
+
 					if (e.left == i) {
-						long max = 0;
-						for (int j = i + 1; j < N; j++) {
-							max = Math.max(max, DP[j]);
-						}
+
+//						if (cnt == 0) {
+//
+//							for (int j = i + 1; j < N; j++) {
+//								max = Math.max(max, DP[j]);
+//							}
+//							cnt++;
+//						}
 
 						if (e.rigth + 1 < N)
 							DP[i] = Math.max(DP[e.rigth + 1] + e.energy, max);
@@ -96,6 +104,8 @@ public class BOJ20181_꿈틀꿈틀_호석_애벌레 {
 					}
 
 				}
+			} else {
+				DP[i] = max;
 			}
 
 //			for (Energy e : energyList) {
