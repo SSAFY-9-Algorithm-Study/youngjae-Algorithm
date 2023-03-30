@@ -42,52 +42,54 @@ public class BOJ14722_우유도시 {
 			}
 		}
 
-		Loop: for (int i = 0; i < N; i++) {
+//		Loop: for (int i = 0; i < N; i++) {
+//
+//			for (int j = 0; j < N; j++) {
+//				if (board[i][j] == 0) {
+//					startX = i;
+//					startY = j;
+//					DP[startX][startY] = 1;
+//					break Loop;
+//				}
+//			}
+//		}
 
-			for (int j = 0; j < N; j++) {
-				if (board[i][j] == 0) {
-					startX = i;
-					startY = j;
-					DP[startX][startY] = 1;
-					break Loop;
-				}
-			}
+		if (board[0][0] == 0) {
+			DP[0][0] = 1;
 		}
-		
-		
 
 		// 제일 위 가로 한줄 채우기
-		for (int i = startY + 1; i < N; i++) {
+		for (int i = 1; i < N; i++) {
 			// 마실수 음료인지 확인
-			if (milkMap.get(board[startX][i - 1]) == board[startX][i]) {
-				DP[startX][i] = DP[startX][i - 1] + 1;
+			if (DP[0][i - 1] % 3 == board[0][i]) {
+				DP[0][i] = DP[0][i - 1] + 1;
 			} else
-				DP[startX][i] = DP[startX][i - 1];
+				DP[0][i] = DP[0][i - 1];
 
 		}
 
 		// 제일 왼쪽 세로 한줄 채우기
-		for (int i = startX + 1; i < N; i++) {
+		for (int i = 1; i < N; i++) {
 			// 마실수 음료인지 확인
-			if (milkMap.get(board[i - 1][startY]) == board[i][startY]) {
-				DP[i][startY] = DP[i - 1][startY] + 1;
+			if (DP[i - 1][0] % 3 == board[i][0]) {
+				DP[i][0] = DP[i - 1][0] + 1;
 			} else
-				DP[i][startY] = DP[i - 1][startY];
+				DP[i][0] = DP[i - 1][0];
 		}
 
 		// 위쪽, 왼쪽 체크하면서 DP테이블 업데이트
 
-		for (int i = startX + 1; i < N; i++) {
-			for (int j = startY + 1; j < N; j++) {
+		for (int i = 1; i < N; i++) {
+			for (int j = 1; j < N; j++) {
 
 				// 위쪽에서 체크
 				int maxUp = DP[i - 1][j];
-				if (milkMap.get(board[i - 1][j]) == board[i][j]) {
+				if (DP[i - 1][j] % 3 == board[i][j]) {
 					maxUp = DP[i - 1][j] + 1;
 				}
 
 				int maxLeft = DP[i][j - 1];
-				if (milkMap.get(board[i][j - 1]) == board[i][j]) {
+				if (DP[i][j - 1] % 3 == board[i][j]) {
 					maxLeft = DP[i][j - 1] + 1;
 				}
 
@@ -96,7 +98,9 @@ public class BOJ14722_우유도시 {
 			}
 		}
 
-//		if (DP[N - 1][N - 2] == 0 && DP[N - 2][N - 1] == 0 && DP[N - 1][N - 1] == 0) {
+//		if (DP[N - 1][N - 2] == 0 && DP[N - 2][N - 1] == 0 && DP[N - 1][N - 1] == 0)
+//
+//		{
 //			DP[N - 1][N - 1] = 1;
 //		}
 
