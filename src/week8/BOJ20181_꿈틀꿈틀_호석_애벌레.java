@@ -1,134 +1,85 @@
-package week8;
+package algo;
 
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class BOJ20181_꿈틀꿈틀_호석_애벌레 {
+public class BOJ14722_우유도시 {
 
-	static class Energy {
-		long energy;
-		int left;
-		int rigth;
+	// 딸기->초코, 초코->바나나, 바나나->딸기
 
-		public Energy(long energy, int left, int rigth) {
-			this.energy = energy;
-			this.left = left;
-			this.rigth = rigth;
-		}
-
-	}
-
-	static Map<Integer, ArrayList<Energy>> map;
-
-	static int N; // 먹이 개수
-	static long K; // 최소 만족도
-
-	static long DP[]; // DP테이블, i번쨰 부터 나뭇가지를 먹는다.
-
-	static long branch[];
-	static ArrayList<Energy> energyList;
+	static int N; // 영역 크기
+	static int[][] board; // 영역 정보
+	static int[][] DP; //
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		K = Long.parseLong(st.nextToken());
+		N = Integer.parseInt(br.readLine());
 
-		DP = new long[N];
-		branch = new long[N];
+		board = new int[N][N]; // 0,0부터 시작
+		DP = new int[N][N];
 
-		map = new HashMap<Integer, ArrayList<Energy>>();
+		int startX = N;
+		int startY = N;
 
-		st = new StringTokenizer(br.readLine());
+		StringTokenizer st;
 		for (int i = 0; i < N; i++) {
-			branch[i] = Long.parseLong(st.nextToken());
-		}
-
-		energyList = new ArrayList<Energy>();
-
-		int lt = 0;
-		int sum = 0;
-		for (int rt = 0; rt < N; rt++) {
-			sum += branch[rt];
-			if (sum >= K) {
-
-				if (!map.containsKey(lt)) {
-					map.put(lt, new ArrayList<>());
-
-				}
-
-				map.get(lt).add(new Energy(sum - K, lt, rt));
-//				System.out.println(sum);
-//				System.out.println(lt + " " + rt);
-//				energyList.add(new Energy(sum - K, lt, rt));
-
-				while (sum >= K) {
-					sum -= branch[lt];
-					lt++;
-				}
+			st = new StringTokenizer(br.readLine());
+			for (int j = 0; j < N; j++) {
+				board[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
 
-		for (int i = N - 1; i >= 0; i--) {
-			long max = 0;
-			if (i + 1 < N)
-				max = DP[i + 1];
-			if (map.containsKey(i)) {
-				energyList = map.get(i);
-				for (Energy e : energyList) {
+		if (board[0][0] == 0) {
+			DP[0][0] = 1;
+		}
 
-//					int cnt = 0;
-
-					if (e.left == i) {
-
-//						if (cnt == 0) {
-//
-//							for (int j = i + 1; j < N; j++) {
-//								max = Math.max(max, DP[j]);
-//							}
-//							cnt++;
-//						}
-
-						if (e.rigth + 1 < N)
-							DP[i] = Math.max(DP[e.rigth + 1] + e.energy, max);
-						else
-							DP[i] = Math.max(max, e.energy);
-					}
-
-				}
-			} else {
-				DP[i] = max;
-			}
-
-//			for (Energy e : energyList) {
-//
-//				if (e.left == i) {
-//					long max = 0;
-//					for (int j = i + 1; j < N; j++) {
-//						max = Math.max(max, DP[j]);
-//					}
-//
-//					if (e.rigth + 1 < N)
-//						DP[i] = Math.max(DP[e.rigth + 1] + e.energy, max);
-//					else
-//						DP[i] = Math.max(max, e.energy);
-//				}
-//
-//			}
+		// 제일 위 가로 한줄 채우기
+		for (int i = 1; i < N; i++) {
+			// 마실수 음료인지 확인
+			if (DP[0][i - 1] % 3 == board[0][i]) {
+				DP[0][i] = DP[0][i - 1] + 1;
+			} else
+				DP[0][i] = DP[0][i - 1];
 
 		}
 
-//		System.out.println(Arrays.toString(DP));
+		// 제일 왼쪽 세로 한줄 채우기
+		for (int i = 1; i < N; i++) {
+			// 마실수 음료인지 확인
+			if (DP[i - 1][0] % 3 == board[i][0]) {
+				DP[i][0] = DP[i - 1][0] + 1;
+			} else
+				DP[i][0] = DP[i - 1][0];
+		}
 
-		System.out.println(DP[0]);
+		// 위쪽, 왼쪽 체크하면서 DP테이블 업데이트
+		for (int i = 1; i < N; i++) {
+			for (int j = 1; j < N; j++) {
+
+				// 위쪽에서 체크
+				int maxUp = DP[i - 1][j];
+				if (DP[i - 1][j] % 3 == board[i][j]) {
+					maxUp = DP[i - 1][j] + 1;
+				}
+
+				int maxLeft = DP[i][j - 1];
+				if (DP[i][j - 1] % 3 == board[i][j]) {
+					maxLeft = DP[i][j - 1] + 1;
+				}
+
+				DP[i][j] = Math.max(maxLeft, maxUp);
+
+			}
+		}
+
+		System.out.println(DP[N - 1][N - 1]);
+
 		br.close();
 	}
 
