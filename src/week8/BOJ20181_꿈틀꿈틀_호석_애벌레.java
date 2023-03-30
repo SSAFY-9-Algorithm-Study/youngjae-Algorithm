@@ -1,85 +1,102 @@
-package algo;
+package week8;
 
+import java.awt.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class BOJ14722_우유도시 {
+public class BOJ20181_꿈틀꿈틀_호석_애벌레 {
 
-	// 딸기->초코, 초코->바나나, 바나나->딸기
+	static class Energy {
+		long energy;
+		int left;
+		int rigth;
 
-	static int N; // 영역 크기
-	static int[][] board; // 영역 정보
-	static int[][] DP; //
+		public Energy(long energy, int left, int rigth) {
+			this.energy = energy;
+			this.left = left;
+			this.rigth = rigth;
+		}
+
+	}
+
+	static Map<Integer, ArrayList<Energy>> map;
+
+	static int N; // 먹이 개수
+	static long K; // 최소 만족도
+
+	static long DP[]; // DP테이블, i번쨰 부터 나뭇가지를 먹는다.
+
+	static long branch[];
+	static ArrayList<Energy> energyList;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		N = Integer.parseInt(br.readLine());
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		K = Long.parseLong(st.nextToken());
 
-		board = new int[N][N]; // 0,0부터 시작
-		DP = new int[N][N];
+		DP = new long[N];
+		branch = new long[N];
 
-		int startX = N;
-		int startY = N;
+		map = new HashMap<Integer, ArrayList<Energy>>();
 
-		StringTokenizer st;
+		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < N; i++) {
-			st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < N; j++) {
-				board[i][j] = Integer.parseInt(st.nextToken());
+			branch[i] = Long.parseLong(st.nextToken());
+		}
+
+		energyList = new ArrayList<Energy>();
+
+		int lt = 0;
+		int sum = 0;
+		for (int rt = 0; rt < N; rt++) {
+			sum += branch[rt];
+			if (sum >= K) {
+
+				if (!map.containsKey(lt)) {
+					map.put(lt, new ArrayList<>());
+
+				}
+
+				map.get(lt).add(new Energy(sum - K, lt, rt));
+
+				while (sum >= K) {
+					sum -= branch[lt];
+					lt++;
+				}
 			}
 		}
 
-		if (board[0][0] == 0) {
-			DP[0][0] = 1;
-		}
+		for (int i = N - 1; i >= 0; i--) {
+			long max = 0;
+			if (i + 1 < N)
+				max = DP[i + 1];
+			if (map.containsKey(i)) {
+				energyList = map.get(i);
+				for (Energy e : energyList) {
+					if (e.left == i) {
 
-		// 제일 위 가로 한줄 채우기
-		for (int i = 1; i < N; i++) {
-			// 마실수 음료인지 확인
-			if (DP[0][i - 1] % 3 == board[0][i]) {
-				DP[0][i] = DP[0][i - 1] + 1;
-			} else
-				DP[0][i] = DP[0][i - 1];
+						if (e.rigth + 1 < N)
+							DP[i] = Math.max(DP[e.rigth + 1] + e.energy, max);
+						else
+							DP[i] = Math.max(max, e.energy);
+					}
 
-		}
-
-		// 제일 왼쪽 세로 한줄 채우기
-		for (int i = 1; i < N; i++) {
-			// 마실수 음료인지 확인
-			if (DP[i - 1][0] % 3 == board[i][0]) {
-				DP[i][0] = DP[i - 1][0] + 1;
-			} else
-				DP[i][0] = DP[i - 1][0];
-		}
-
-		// 위쪽, 왼쪽 체크하면서 DP테이블 업데이트
-		for (int i = 1; i < N; i++) {
-			for (int j = 1; j < N; j++) {
-
-				// 위쪽에서 체크
-				int maxUp = DP[i - 1][j];
-				if (DP[i - 1][j] % 3 == board[i][j]) {
-					maxUp = DP[i - 1][j] + 1;
 				}
-
-				int maxLeft = DP[i][j - 1];
-				if (DP[i][j - 1] % 3 == board[i][j]) {
-					maxLeft = DP[i][j - 1] + 1;
-				}
-
-				DP[i][j] = Math.max(maxLeft, maxUp);
-
+			} else {
+				DP[i] = max;
 			}
+
 		}
 
-		System.out.println(DP[N - 1][N - 1]);
-
+		System.out.println(DP[0]);
 		br.close();
 	}
 
