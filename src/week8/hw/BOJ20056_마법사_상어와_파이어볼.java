@@ -94,6 +94,7 @@ public class BOJ20056_마법사_상어와_파이어볼 {
 			}
 		}
 
+		
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				// 파이어볼이 존재하면 이동
