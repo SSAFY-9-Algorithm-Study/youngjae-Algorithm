@@ -6,22 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-import com.sun.swing.internal.plaf.basic.resources.basic;
-
 public class BOJ20057_마법사_상어와_토네이도 {
-
-	static class Sand {
-		int x;
-		int y;
-		int direction;
-
-		public Sand(int x, int y, int direction) {
-			this.x = x;
-			this.y = y;
-			this.direction = direction;
-		}
-
-	}
 
 	// 우, 하, 좌 , 상
 	static int[] turnDx = { 0, 1, 0, -1 };
@@ -139,7 +124,6 @@ public class BOJ20057_마법사_상어와_토네이도 {
 	// 모래 흩날리기
 	static void splitSand(int x, int y, int direction) {
 
-
 		int sand = board[x][y];
 		for (int i = 0; i < 9; i++) {
 			int splitX = x + windDx[direction][i];
@@ -148,8 +132,7 @@ public class BOJ20057_마법사_상어와_토네이도 {
 			int split = (sand * percent[i]) / 100;
 			// 흩날림
 			board[x][y] -= split;
-			
-			
+
 			// 격자 밖으로 나간 경우
 			if (!(0 <= splitX && splitX < N && 0 <= splitY && splitY < N)) {
 				answer += split;
