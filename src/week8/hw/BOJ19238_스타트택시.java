@@ -126,48 +126,38 @@ public class BOJ19238_스타트택시 {
 
 			if (list.isEmpty()) {
 
-//				System.out.println("");
 				answer = -1;
 				break;
 			}
 			Person person = sortPassenger(list);
-			
 
 			int length1 = person.length;
 
 			int length2 = BFSGoEnd(person);
-			
+
 			System.out.println("최적 승객");
-			System.out.println("현재 연료:"+taxi.fuel);
-			System.out.println(person.startX + " " + person.startY + "고객에게 " + length1+"도착지 "+length2);
+			System.out.println(person.startX + " " + person.startY + "고객에게 " + length1 + "도착지 " + length2);
 
-			
 			taxi.fuel = taxi.fuel - length1 - length2;
-			System.out.println("깎인 연료:"+taxi.fuel);
 
-			if(length1 <0) {
+			if (length1 < 0) {
 				answer = -1;
 				break;
 			}
-			
-			if(length2 <0) {
+
+			if (length2 < 0) {
 				answer = -1;
 				break;
 			}
-			
+
 			if (taxi.fuel < 0) {
-//				System.out.println("부족 ");
-//				System.out.println(taxi.fuel);
+
 				answer = -1;
 				break;
 			} else {
-//				System.out.println(taxi.fuel);
 				taxi.fuel = taxi.fuel + length2 * 2;
-//				System.out.println(taxi.fuel);
 				answer = taxi.fuel;
 			}
-			System.out.println("충전 연료:"+taxi.fuel);
-			System.out.println();
 
 		}
 
@@ -206,7 +196,6 @@ public class BOJ19238_스타트택시 {
 						if (board[nx][ny] != 1 && visited[nx][ny] == 0) {
 							visited[nx][ny] = 1;
 							if (board[nx][ny] == 2) {
-//								System.out.println(nx + "// " + ny + "// " + level);
 
 								Person person = new Person(nx, ny, 0, 0);
 								person.length = level + 1;
@@ -227,7 +216,7 @@ public class BOJ19238_스타트택시 {
 	}
 
 	static Person sortPassenger(ArrayList<Person> list) {
-		// 정렬로 최적의 승객 찾
+		// 정렬로 최적의 승객 찾기
 		Collections.sort(list);
 		Person person = list.get(0);
 
