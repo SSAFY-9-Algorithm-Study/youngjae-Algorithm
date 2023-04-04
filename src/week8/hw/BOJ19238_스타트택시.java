@@ -131,21 +131,26 @@ public class BOJ19238_스타트택시 {
 				break;
 			}
 			Person person = sortPassenger(list);
-//			System.out.println("최적 승객");
-//			System.out.println(person.startX + " " + person.startY + " " + person.length);
+			
 
 			int length1 = person.length;
 
 			int length2 = BFSGoEnd(person);
+			
+			System.out.println("최적 승객");
+			System.out.println("현재 연료:"+taxi.fuel);
+			System.out.println(person.startX + " " + person.startY + "고객에게 " + length1+"도착지 "+length2);
 
+			
 			taxi.fuel = taxi.fuel - length1 - length2;
+			System.out.println("깎인 연료:"+taxi.fuel);
 
 			if(length1 <0) {
 				answer = -1;
 				break;
 			}
 			
-			if(length2<0) {
+			if(length2 <0) {
 				answer = -1;
 				break;
 			}
@@ -161,6 +166,8 @@ public class BOJ19238_스타트택시 {
 //				System.out.println(taxi.fuel);
 				answer = taxi.fuel;
 			}
+			System.out.println("충전 연료:"+taxi.fuel);
+			System.out.println();
 
 		}
 
