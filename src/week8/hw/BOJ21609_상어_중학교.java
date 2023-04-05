@@ -1,4 +1,4 @@
-package week8.hw;
+package algo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -154,8 +154,8 @@ public class BOJ21609_상어_중학교 {
 		ArrayList<Point> list = new ArrayList<Point>();
 		vistied = new int[N][N];
 		// 블록의 행이 가장 큰 것 -> 열이 가장 큰 것을 찾기 때문에 오른쪽 아래부터 탐
-		for (int i = N - 1; i >= 0; i--) {
-			for (int j = N - 1; j >= 0; j--) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
 
 				if (board[i][j] > 0 && vistied[i][j] == 0) {
 
