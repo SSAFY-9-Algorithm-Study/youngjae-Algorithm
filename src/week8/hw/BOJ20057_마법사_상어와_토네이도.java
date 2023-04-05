@@ -9,13 +9,16 @@ import java.util.StringTokenizer;
 public class BOJ20057_마법사_상어와_토네이도 {
 
 	// 우, 하, 좌 , 상
+	// 토네이도 반대 방향
 	static int[] turnDx = { 0, 1, 0, -1 };
 	static int[] turnDy = { 1, 0, -1, 0 };
 
 	// 좌, 하, 우, 상
+	// 토네이도 방향
 	static int[] dx = { 0, 1, 0, -1 };
 	static int[] dy = { -1, 0, 1, 0 };
 
+	// 토네이도가 x에서 y로 이동하면, y의 모든 모래가 비율과 α가 적혀있는 칸으로 이동한다
 	static int[] percent = { 1, 1, 7, 7, 10, 10, 2, 2, 5 };
 
 	static int[][] windDx = { { -1, 1, -1, 1, -1, 1, -2, 2, 0 }, // 좌
@@ -58,12 +61,13 @@ public class BOJ20057_마법사_상어와_토네이도 {
 		}
 
 		makeTurnPoint(); // 꺾이는 지점 찾기
-		/*
-		 * 
-		 * 꺾이는 지점 출력 for (int i = 0; i < N; i++) {
-		 * System.out.println(Arrays.toString(turnPoint[i])); }
-		 * 
-		 */
+		
+		 
+//		 // 꺾이는 지점 출력 
+//		for (int i = 0; i < N; i++) {
+//		 System.out.println(Arrays.toString(turnPoint[i])); }
+		 
+		 
 		moveSand(); // 모래 이동 및 흩날림
 
 		System.out.println(answer);
@@ -86,7 +90,7 @@ public class BOJ20057_마법사_상어와_토네이도 {
 			if (!(0 <= nx && nx < N && 0 <= ny && ny < N) || (visited[nx][ny] == 1)) {
 
 				turnPoint[x][y] = 1;
-				direction = (direction + 1) % 4;
+				direction = (direction + 1) % 4; //다음 방향으 꺾기
 				nx = x + turnDx[direction];
 				ny = y + turnDy[direction];
 
@@ -96,7 +100,7 @@ public class BOJ20057_마법사_상어와_토네이도 {
 			visited[nx][ny] = 1;
 
 		}
-		turnPoint[startX][startY] = 0;
+		turnPoint[startX][startY] = 0; // 소용돌이 시작지점
 	}
 
 	// 모래 이동

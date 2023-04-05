@@ -31,6 +31,9 @@ public class BOJ19238_스타트택시 {
 
 		@Override
 		public int compareTo(Person o) {
+			// 승객을 고를 때는 현재 위치에서 최단거리가 가장 짧은 승객을 고른다.
+			// 그런 승객이 여러 명이면 그중 행 번호가 가장 작은 승객을,
+			// 그런 승객도 여러 명이면 그중 열 번호가 가장 작은 승객을 고른다.
 
 			if (this.length == o.length && this.startX == o.startX) {
 				return this.startY - o.startY;
@@ -113,7 +116,7 @@ public class BOJ19238_스타트택시 {
 			int endX = Integer.parseInt(st.nextToken());
 			int endY = Integer.parseInt(st.nextToken());
 
-			board[startX][startY] = 2;
+			board[startX][startY] = 2; // 사람이 있는 지점 2로 표시
 
 			persons[i] = new Person(startX, startY, endX, endY);
 
@@ -121,11 +124,10 @@ public class BOJ19238_스타트택시 {
 
 		int answer = 0;
 		for (int i = 0; i < M; i++) {
-
+			// 택시가 있는 지점부터 BFS시작
 			ArrayList<Person> list = BFSFindPassengers(new Point(taxi.x, taxi.y));
 
 			if (list.isEmpty()) {
-
 				answer = -1;
 				break;
 			}
@@ -174,6 +176,7 @@ public class BOJ19238_스타트택시 {
 		int level = 0;
 		visited = new int[N + 1][N + 1];
 
+		// 택시 위치에 승객이 있는경우
 		if (board[start.x][start.y] == 2) {
 			Person person = new Person(start.x, start.y, 0, 0);
 			person.length = 0;
@@ -197,8 +200,8 @@ public class BOJ19238_스타트택시 {
 							visited[nx][ny] = 1;
 							if (board[nx][ny] == 2) {
 
-								Person person = new Person(nx, ny, 0, 0);
-								person.length = level + 1;
+								Person person = new Person(nx, ny, 0, 0);  //도착지점은 0,0으로 설정
+								person.length = level + 1;  //승객까지 가는거리 저장
 								list.add(person);
 							}
 							queue.add(new Point(nx, ny));
@@ -221,6 +224,7 @@ public class BOJ19238_스타트택시 {
 		Person person = list.get(0);
 
 		for (int i = 0; i < M; i++) {
+			// 도착지점 설정
 			if (persons[i].startX == person.startX && persons[i].startY == person.startY) {
 				person.endX = persons[i].endX;
 				person.endY = persons[i].endY;
@@ -259,7 +263,7 @@ public class BOJ19238_스타트택시 {
 							if (nx == person.endX && ny == person.endY) {
 								taxi.x = person.endX;
 								taxi.y = person.endY;
-								return level + 1;
+								return level + 1;  // 도착지점 까지 가는거리 리턴
 							}
 							queue.add(new Point(nx, ny));
 

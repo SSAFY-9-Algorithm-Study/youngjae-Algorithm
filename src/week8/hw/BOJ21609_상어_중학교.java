@@ -1,4 +1,4 @@
-package algo;
+package week8.hw;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,6 +39,8 @@ public class BOJ21609_상어_중학교 {
 			this.y = y;
 		}
 
+		// 크기가 가장 큰 블록 그룹을 찾는다. 그러한 블록 그룹이 여러 개라면 포함된 무지개 블록의 수가 가장 많은 블록 그룹,
+		// 그러한 블록도 여러개라면 기준 블록의 행이 가장 큰 것을, 그 것도 여러개이면 열이 가장 큰 것을 찾는다.
 		@Override
 		public int compareTo(Point o) {
 			if (o.x == this.x && o.blockCnt == this.blockCnt && o.rainbowCnt == this.rainbowCnt) {
@@ -56,11 +58,6 @@ public class BOJ21609_상어_중학교 {
 			return o.blockCnt - this.blockCnt;
 		}
 
-		@Override
-		public String toString() {
-			return "Point [x=" + x + ", y=" + y + ", blockCnt=" + blockCnt + ", rainbowCnt=" + rainbowCnt + "]";
-		}
-
 	}
 
 	static int[] dx = { -1, 0, 1, 0 };
@@ -74,7 +71,7 @@ public class BOJ21609_상어_중학교 {
 	static ArrayList<Point> blockGroupList;
 	static ArrayList<Point> zeroList;
 	static int countRainbow; // 무지개 블록 수
-	static int countBlock;
+	static int countBlock;  // 블록 수
 	static int answer;
 
 	public static void main(String[] args) throws IOException {
@@ -98,6 +95,9 @@ public class BOJ21609_상어_중학교 {
 			}
 		}
 
+		
+		//오토 플레이는 다음과 같은 과정이 블록 그룹이 존재하는 동안 계속해서 반복되어야 한다.
+		// 2개 블록 묶음이 안생기면 끝
 		while (true) {
 
 			// 블록 그룹 찾기
@@ -153,13 +153,16 @@ public class BOJ21609_상어_중학교 {
 	static ArrayList<Point> findBlockGroup() {
 		ArrayList<Point> list = new ArrayList<Point>();
 		vistied = new int[N][N];
-		// 블록의 행이 가장 큰 것 -> 열이 가장 큰 것을 찾기 때문에 오른쪽 아래부터 탐
+		// 블록의 행이 가장 큰 것 -> 열이 가장 큰 것을 찾기 때문에 오른쪽 아래부터 탐색 했었지만,
+		// 기준 블록은 블록 그룹의 기준 블록은 무지개 블록이 아닌 
+		// 블록 중에서 행의 번호가 가장 작은 블록, 그러한 블록이 여러개면 열의 번호가 가장 작은 블록이다.
+		// 라는 조건 때문에 왼쪽 위부터 탐색해야한다.
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 
 				if (board[i][j] > 0 && vistied[i][j] == 0) {
 
-					zeroList = new ArrayList<Point>();
+					zeroList = new ArrayList<Point>();  // 무지개블록은 다시 원상복구 시켜야한다
 					countRainbow = 0;
 					countBlock = 1;
 					vistied[i][j] = 1;
@@ -169,12 +172,6 @@ public class BOJ21609_상어_중학교 {
 					point.blockCnt = countBlock;
 					point.rainbowCnt = countRainbow;
 
-//					System.out.println(point);
-//					for (int k = 0; k < N; k++) {
-//						System.out.println(Arrays.toString(vistied[k]));
-//					}
-//					System.out.println(zeroList);
-//					System.out.println();
 
 					// 무지개 방문 안했다고 돌려놓기
 					for (Point zero : zeroList) {
@@ -189,7 +186,6 @@ public class BOJ21609_상어_중학교 {
 
 			}
 		}
-//		System.out.println("=============끝");
 		return list;
 	}
 
@@ -231,8 +227,9 @@ public class BOJ21609_상어_중학교 {
 		}
 
 		for (int j = 0; j < N; j++) {
+			// 큐에 해당 열의 모든 (빈곳 제외)블록을 저장
 			Queue<Block> queue = new LinkedList();
-			for (int i = N - 1; i >= 0; i--) {
+			for (int i = N - 1; i >= 0; i--) { 
 				if (board[i][j] != Integer.MIN_VALUE)
 					queue.add(new Block(i, j, board[i][j]));
 			}
@@ -241,11 +238,11 @@ public class BOJ21609_상어_중학교 {
 
 				if (!queue.isEmpty()) {
 					Block block = queue.poll();
-					if (block.data != -1) {
+					if (block.data != -1) {  // 검정블록 아니면 바닥부터 차곡차곡
 						tmpBoard[i][j] = block.data;
-					} else {
+					} else {//-1(검정블록)을 꺼내면 검정블록 위치부터 시작
 						tmpBoard[block.x][block.y] = block.data;
-						i = block.x;
+						i = block.x;  // 인덱스 위치를 검정블록부터 시작
 					}
 				}
 
