@@ -3,10 +3,7 @@ package week8.hw;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.ShardingKey;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -28,11 +25,11 @@ public class BOJ19236_청소년상어 {
 			this.number = number;
 		}
 
-		@Override
-		public String toString() {
-			return "Fish [x=" + x + ", y=" + y + ", direction=" + direction + ", number=" + number + ", isShark="
-					+ isShark + "]";
-		}
+//		@Override
+//		public String toString() {
+//			return "Fish [x=" + x + ", y=" + y + ", direction=" + direction + ", number=" + number + ", isShark="
+//					+ isShark + "]";
+//		}
 
 	}
 
@@ -93,7 +90,7 @@ public class BOJ19236_청소년상어 {
 
 		int tmpNumBoard[][] = new int[N][N];
 
-		// 먹기전 상태 임시저
+		// 먹기전 상태 임시저장
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 				tmpNumBoard[i][j] = numBoard[i][j];
@@ -108,20 +105,20 @@ public class BOJ19236_청소년상어 {
 
 		// 이동할 곳이 없는 경우
 		if (moveList.size() == 0) {
-			System.out.println("이동할곳이 없다");
-			System.out.println(sumEat);
+//			System.out.println("이동할곳이 없다");
+//			System.out.println(sumEat);
 			answer = Math.max(answer, sumEat);
 			return;
 		}
 
-		System.out.println(sumEat);
-		System.out.println(moveList);
+//		System.out.println(sumEat);
+//		System.out.println(moveList);
 
 //		for (int i = 0; i < N; i++) {
 //			System.out.println(Arrays.toString(numBoard[i]));
 //		}
 
-		System.out.println();
+//		System.out.println();
 
 		// 상어 식사
 		for (Fish fish : moveList) {
@@ -131,19 +128,19 @@ public class BOJ19236_청소년상어 {
 			numBoard[fish.x][fish.y] = 0;
 			fish.isShark = true;
 
-			System.out.println(moveList);
-
-			System.out.println(fish.number + "먹음");
-			System.out.println(fish);
-			for (int i = 0; i < N; i++) {
-				System.out.println(Arrays.toString(numBoard[i]));
-			}
-
-			for (int i = 1; i <= N * N; i++) {
-
-				System.out.println(i + ": " + map.get(i));
-			}
-			System.out.println();
+//			System.out.println(moveList);
+//
+//			System.out.println(fish.number + "먹음");
+//			System.out.println(fish);
+//			for (int i = 0; i < N; i++) {
+//				System.out.println(Arrays.toString(numBoard[i]));
+//			}
+//
+//			for (int i = 1; i <= N * N; i++) {
+//
+//				System.out.println(i + ": " + map.get(i));
+//			}
+//			System.out.println();
 			DFS(fish, sumEat + fish.number);
 
 //			// 먹은 물고기 원상복구
@@ -216,11 +213,11 @@ public class BOJ19236_청소년상어 {
 				}
 
 				// 물고기 이동
-				System.out.println(numBoard[nx][ny] + " < > " + fish.number);
+//				System.out.println(numBoard[nx][ny] + " < > " + fish.number);
 
 				if (map.get(numBoard[nx][ny]) == null) {
 					map.put(numBoard[fish.x][fish.y],
-							new Fish(nx, nx, (fish.direction + d) % 8, numBoard[fish.x][fish.y]));
+							new Fish(nx, ny, (fish.direction + d) % 8, numBoard[fish.x][fish.y]));
 
 					int tmp = numBoard[fish.x][fish.y];
 					numBoard[fish.x][fish.y] = numBoard[nx][ny];

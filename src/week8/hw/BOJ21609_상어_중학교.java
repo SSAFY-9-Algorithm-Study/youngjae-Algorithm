@@ -216,12 +216,13 @@ public class BOJ21609_상어_중학교 {
 
 	static void gravity() {
 
+		// 비어있는 배열 생성
 		int[][] tmpBoard = new int[N][N];
 
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
 
-				tmpBoard[i][j] = Integer.MIN_VALUE;
+				tmpBoard[i][j] = Integer.MIN_VALUE;  // 모두 빈곳으로 저장
 
 			}
 		}

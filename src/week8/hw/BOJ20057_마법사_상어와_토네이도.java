@@ -113,7 +113,7 @@ public class BOJ20057_마법사_상어와_토네이도 {
 			// 모래 흩날리기
 			splitSand(x, y, direction);
 
-			if (turnPoint[x][y] == 1) {
+			if (turnPoint[x][y] == 1) {  // 꺾이는 지점에 방향 전환
 				direction = (direction + 1) % 4;
 			}
 
@@ -134,7 +134,7 @@ public class BOJ20057_마법사_상어와_토네이도 {
 			int splitY = y + windDy[direction][i];
 
 			int split = (sand * percent[i]) / 100;
-			// 흩날림
+			// percent 만큼 흩날림
 			board[x][y] -= split;
 
 			// 격자 밖으로 나간 경우
@@ -158,7 +158,9 @@ public class BOJ20057_마법사_상어와_토네이도 {
 			return;
 		}
 
+		// 다음 위치에 추가됨
 		board[splitX][splitY] += board[x][y];
+		// 원래있던 모래는 소멸
 		board[x][y] = 0;
 
 	}

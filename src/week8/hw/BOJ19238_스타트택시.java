@@ -137,8 +137,6 @@ public class BOJ19238_스타트택시 {
 
 			int length2 = BFSGoEnd(person);
 
-			System.out.println("최적 승객");
-			System.out.println(person.startX + " " + person.startY + "고객에게 " + length1 + "도착지 " + length2);
 
 			taxi.fuel = taxi.fuel - length1 - length2;
 
