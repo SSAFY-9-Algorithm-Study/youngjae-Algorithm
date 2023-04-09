@@ -99,6 +99,7 @@ public class SWEA4193_수영대회_결승전 {
 			level++;
 		}
 
+		answer=-1;
 	}
 
 }
