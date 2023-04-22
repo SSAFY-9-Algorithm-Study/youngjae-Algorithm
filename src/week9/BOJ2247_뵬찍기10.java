@@ -19,13 +19,15 @@ public class BOJ2247_뵬찍기10 {
 
 		N = Integer.parseInt(br.readLine());
 
-		arr=new int[N][N];
-		
+		arr = new int[N][N];
+
 		int count = 0;
 		int step = N / 3;
+		
+		// step: 다음 x, y 증가량 
 		for (int i = 0; i < 3 * step; i = i + step) {
 			for (int j = 0; j < 3 * step; j = j + step) {
-				if (count == 4) {
+				if (count == 4) {  // 빈칸 영역(중간, 5번째)
 					arr[i][j] = 0;
 					DFS(i, j, step / 3, false);
 				} else {
@@ -37,26 +39,19 @@ public class BOJ2247_뵬찍기10 {
 			}
 		}
 
-//		for (int i = 0; i < N; i++) {
-//			System.out.println(Arrays.toString(arr[i]));
-//		}
-
-		StringBuffer sb=new StringBuffer();
+		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < N; i++) {
-			for(int j=0;j<N;j++) {
-				if(arr[i][j]==1) {
+			for (int j = 0; j < N; j++) {
+				if (arr[i][j] == 1) {
 					sb.append("*");
-				}
-				else {
+				} else {
 					sb.append(" ");
 				}
 			}
 			sb.append("\n");
 		}
 		System.out.println(sb);
-		
-		
-		
+
 		br.close();
 	}
 

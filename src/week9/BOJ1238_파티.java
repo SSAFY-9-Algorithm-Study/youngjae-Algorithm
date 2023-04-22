@@ -28,7 +28,7 @@ public class BOJ1238_파티 {
 
 	}
 
-	static int N, M, X;
+	static int N, M, X;// N명의 학생, 총 M개의 단방향 도로, 파티 장소X  
 	static ArrayList<Edge> graph[];
 	static ArrayList<Edge> graphReverce[];
 	static int[] distance;
