@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
-public class Main {
+public class BOJ14725_개미굴{
 
 	static TreeMap<String, TreeMap> root;
 	static int N;

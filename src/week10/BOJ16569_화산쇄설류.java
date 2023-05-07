@@ -128,7 +128,6 @@ public class BOJ16569_화산쇄설류 {
 
 							
 							if (flag == true) {
-//								System.out.println(board[nx][ny]);
 								queue.offer(new Point(nx, ny));
 								if (answerH < board[nx][ny]) {
 									answerH = board[nx][ny];
@@ -142,13 +141,11 @@ public class BOJ16569_화산쇄설류 {
 				}
 
 			}
-//			System.out.println();
 
 			level++;
 
 		}
 		
-//		System.out.println(level);
 	}
 
 }

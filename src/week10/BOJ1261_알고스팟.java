@@ -83,8 +83,6 @@ public class BOJ1261_알고스팟 {
 
 				if (0 <= nx && nx < N && 0 <= ny && ny < M) {
 
-					if (cur.weigth > dist[cur.x][cur.y])
-						continue;
 
 					if (board[nx][ny] == true) {
 						if (dist[nx][ny] > dist[cur.x][cur.y] + 1) {
