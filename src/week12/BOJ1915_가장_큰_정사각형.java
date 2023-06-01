@@ -31,7 +31,7 @@ public class BOJ1915_가장_큰_정사각형 {
 				board[i][j+1]=input.charAt(j)-'0';
 			}
 			
-		}
+		}  
 
 		for(int i=1;i<=N;i++) {
 			for(int j=1;j<=M;j++) {
