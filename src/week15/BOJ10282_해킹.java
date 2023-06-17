@@ -82,8 +82,6 @@ public class BOJ10282_해킹 {
 
 		}
 
-		
-
 		br.close();
 
 	}
