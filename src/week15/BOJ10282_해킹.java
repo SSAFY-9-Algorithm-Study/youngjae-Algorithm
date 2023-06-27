@@ -86,14 +86,14 @@ public class BOJ10282_해킹 {
 
 	}
 
-	static void disktra(int start) {
+	static void disktra(int end) {
 		for (int i = 0; i <= N; i++) {
 			dis[i] = Integer.MAX_VALUE;
 		}
 
 		PriorityQueue<Edge> pq = new PriorityQueue<Edge>();
-		pq.add(new Edge(start, 0));
-		dis[start] = 0;
+		pq.add(new Edge(end, 0));
+		dis[end] = 0;
 
 		while (!pq.isEmpty()) {
 			Edge cur = pq.poll();

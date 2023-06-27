@@ -4,12 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import sun.jvm.hotspot.ui.action.FindAction;
 
 public class BOJ4386_별자리만들기 {
 
@@ -78,8 +75,6 @@ public class BOJ4386_별자리만들기 {
 
 		Collections.sort(list);
 
-//		System.out.println(unf.length);
-//		System.out.println(list.size());
 		for (int i = 0; i < list.size(); i++) {
 			unf[i] = i;
 		}
@@ -89,7 +84,6 @@ public class BOJ4386_별자리만들기 {
 			int fv2 = Find(next.v2);
 			if (fv1 != fv2) {
 				Union(fv1, fv2);
-//				System.out.println(next.weight);
 				answer += next.weight;
 			}
 
@@ -102,18 +96,13 @@ public class BOJ4386_별자리만들기 {
 	}
 
 	static double getDist(double x1, double x2, double y1, double y2) {
-		return Math.floor(Math.sqrt(Math.abs((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2))) * 100.0) * 0.01;
+		return Math.floor(Math.sqrt(Math.abs((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))) * 100.0) * 0.01;
 	}
 
 	static void DFS(int level, int start) {
 		if (level == 2) {
-//			System.out.println(Arrays.toString(combi));
 			list.add(new Edge(combi[0], combi[1],
 					getDist(arr[combi[0]].x, arr[combi[1]].x, arr[combi[0]].y, arr[combi[1]].y)));
-//			System.out.println(arr[combi[0]].x + " " + arr[combi[0]].y);
-//			System.out.println(arr[combi[1]].x + " " + arr[combi[1]].y);
-
-//			System.out.println(getDist(arr[combi[0]].x, arr[combi[1]].x, arr[combi[0]].y, arr[combi[1]].y));
 		} else {
 			for (int i = start; i < N; i++) {
 				if (visited[i] == 0) {
@@ -127,21 +116,20 @@ public class BOJ4386_별자리만들기 {
 		}
 	}
 
+	// 정점들의 집합 번호를 찾는다.
 	static int Find(int v) {
-		if (unf[v] == v)
+		if (v == unf[v]) // 현재 정점이 자신의 집합번호인 경우
 			return v;
-		else
-			return unf[v] = Find(unf[v]);
+		else // 현재 정점이 자신의 집합번호가 이닌 경우 재귀
+			return unf[v] = Find(unf[v]); // 정점들의 집합 번호를 갱신해줌, 트리 압축
 	}
 
+	// 두 집합을 순환이 되지 않도록 합친다.
 	static void Union(int v1, int v2) {
 		int fv1 = Find(v1);
 		int fv2 = Find(v2);
-
-		if (fv1 != fv2) {
-			unf[fv2] = fv1;
-		}
-
+		if (fv1 != fv2) // 두 집합의 번호가 다르면 합쳐줌, 트리가 압축되지는 않는다.
+			unf[fv1] = fv2;
 	}
 
 }
