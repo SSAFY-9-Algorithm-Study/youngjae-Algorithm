@@ -3,8 +3,6 @@ package week16;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class BOJ18430_무기공학 {
@@ -98,48 +96,5 @@ public class BOJ18430_무기공학 {
 			
 		}
 	}
-
-//	static void DFS(Point start, int sum) {
-//
-//		if (start.x == R && start.y == C) {
-//			return;
-//		} else {
-//
-//			for (int i = 0; i < 4; i++) {
-//				int nx1 = start.x + dx[i];
-//				int ny1 = start.y + dy[i];
-//
-//				int nx2 = start.x + dx[(i + 1) % 4];
-//				int ny2 = start.y + dy[(i + 1) % 4];
-//
-//				if (0 <= nx1 && nx1 < R && 0 <= nx2 && nx2 < R && 0 <= ny1 && ny1 < C && 0 <= ny2 && ny2 < C) {
-//					if (visited[nx1][ny1] == 0 && visited[nx2][ny2] == 0) {
-//						visited[nx1][ny1] = 1;
-//						visited[nx2][ny2] = 1;
-//
-//						sum = sum + (board[start.x][start.y] * 2) + board[nx1][ny1] + board[nx2][ny2];
-//						answer = Math.max(answer, sum);
-//
-//						int nx = start.x + 0;
-//						int ny = start.y + 1;
-//
-//						if (0 <= nx && nx < R && 0 <= ny && ny < C) {
-//
-//							visited[nx][ny] = 1;
-//							DFS(new Point(nx, ny), sum);
-//							visited[nx][ny] = 0;
-//
-//						}
-//
-//						visited[nx1][ny1] = 0;
-//						visited[nx2][ny2] = 0;
-//					}
-//				}
-//
-//			}
-//
-//		}
-//
-//	}
 
 }

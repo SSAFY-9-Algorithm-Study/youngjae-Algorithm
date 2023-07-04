@@ -78,14 +78,14 @@ public class BOJ9205_맥주마시면서걸어가기 {
 					if (visited[i] == 0 && getDist(cur, arr[i]) <= 1000) {
 						visited[i] = 1;
 						int dist = getDist(cur, arr[i]);
-						if (dist <= 1000) {
-							if (i == N) {
-								answer = true;
-								return;
-							}
 
-							queue.add(arr[i]);
+						if (i == N) {
+							answer = true;
+							return;
 						}
+
+						queue.add(arr[i]);
+
 					}
 				}
 			}
