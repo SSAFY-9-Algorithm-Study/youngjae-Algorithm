@@ -103,29 +103,20 @@ public class BOJ2457_공주님의정원 {
 			return;
 		}
 
-//		for (int i = 0; i < fArr.length; i++) {
-//			System.out.println(fArr[i].start + " " + fArr[i].end);
-//
-//		}
-//		System.out.println("start: "+ start+", end: "+end);
 
 		for (int i = 1; i < fArr.length; i++) {
 			
 			if (fArr[i].start <= start && fArr[i].end > end) {
-//				System.out.println("start: "+ start+", end: "+end);
-
 				end = fArr[i].end;
 			}
 			if (fArr[i].start >= start && fArr[i].end > end //
 					&& end >= fArr[i].start) {
-//				System.out.println(fArr[i].start + " " + fArr[i].end);
 				start = end;
 				end = fArr[i].end;
 
 				count++;
 			} 
-			
-
+		
 		}
 
 		if (fArr.length == 0) {
