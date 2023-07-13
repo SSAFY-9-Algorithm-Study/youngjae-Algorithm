@@ -38,7 +38,6 @@ public class BOJ7662_이중우선순위큐 {
                             if(maxOrMin==null)
                                 break;
                         }
-//                        maxOrMin = maxPq.poll();
                     } else {
                         maxOrMin = minPq.poll();
                         while(!map.containsKey(maxOrMin)){
@@ -46,7 +45,6 @@ public class BOJ7662_이중우선순위큐 {
                             if(maxOrMin==null)
                                 break;
                         }
-//                        maxOrMin = minPq.poll();
                     }
 
                     if (map.get(maxOrMin) != null) {

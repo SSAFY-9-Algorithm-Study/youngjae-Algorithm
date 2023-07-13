@@ -19,7 +19,7 @@ public class BOJ1633_최고의팀만들기 {
 
     static List<Stone> list;
     static int size;
-    static int DP[][][];  //index번쨰에 백팀이 w명, 청팀이 b명 존재할 때의 합
+    static int DP[][][];  //index번쨰에 백팀이 w명, 청팀이 b명 존재할 때의 최합
 
     public static void main(String[] args) throws IOException {
 
